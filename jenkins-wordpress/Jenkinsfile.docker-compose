@@ -16,12 +16,7 @@ pipeline {
         stage('Docker Compose UP') {
             steps{
                 dir('jenkins-wordpress') {
-                    sh "echo docker compose ps"
-                    sh "docker compose ps"
-                    sh "echo docker compose up -d"
                     sh "docker compose up -d"
-                    sh "echo docker compose ps"
-                    sh "docker compose ps"
                 }
             }
         }
