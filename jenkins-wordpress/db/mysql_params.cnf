@@ -1,0 +1,7 @@
+thread_cache_size=64
+tmp_table_size=32M
+max_heap_table_size=32M
+table_open_cache=4K
+innodb_open_files=4K 
+max_allowed_packet=16M
+innodb_buffer_pool_size=32M

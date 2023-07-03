@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   wordpress:
-    image: npwp:latest
+    image: np/wp:latest
     restart: always
     ports:
       - 80:80
@@ -22,7 +22,7 @@ services:
       - app-network
 
   db:
-    image: mysql:5.7
+    image: np/mysql-5.7-1
     restart: always
     environment:
       MYSQL_DATABASE: wpdb

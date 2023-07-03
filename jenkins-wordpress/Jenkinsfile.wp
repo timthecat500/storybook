@@ -1,0 +1,31 @@
+pipeline {
+    agent any
+    stages {
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: 'main',
+                    url: 'https://github.com/timthecat500/storybook.git'
+                }
+        }
+        stage('Build docker image') {
+            steps{
+                dir('jenkins-wordpress') {
+                    sh "docker build -t np/wp:${BUILD_NUMBER} ."
+                }
+            }
+        }
+        stage('Set tag:latest on docker image') {
+            steps{
+		sh "echo BUILD_NUMBER: ${BUILD_NUMBER}"
+                sh "docker tag np/wp:${BUILD_NUMBER} np/wp:latest"
+                sh 'docker images'
+            }
+        }
+    }
+}
