@@ -3,7 +3,7 @@ version: '3.1'
 services:
 
   wordpress:
-    image: npwp:23
+    image: npwp:latest
     restart: always
     ports:
       - 80:80
