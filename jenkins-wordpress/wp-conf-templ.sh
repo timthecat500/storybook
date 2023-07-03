@@ -6,6 +6,7 @@ wpdir=/var/www/html
 echo ${wpdir}
 
 if [ ! -f "${wpdir}/wp-config.php" ]; then
+    echo "copy sample config"
     cp ${wpdir}/wp-config-sample.php ${wpdir}/wp-config.php
 fi
 
