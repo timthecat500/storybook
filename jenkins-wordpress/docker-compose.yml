@@ -3,10 +3,11 @@ version: '3.1'
 services:
 
   wordpress:
-    image: mywp:20
+    image: npwp:23
     restart: always
     ports:
-      - 9000:80
+      - 80:80
+      - 443:443
     environment:
       DB_HOST: db
       DB_USER: wpuser
@@ -14,8 +15,11 @@ services:
       DB_NAME: wpdb
     volumes:
       - wordpress:/var/www/html
+      - certbot-etc:/etc/letsencrypt
     depends_on:
       - db
+    networks:
+      - app-network
 
   db:
     image: mysql:5.7
@@ -27,7 +31,24 @@ services:
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
       - db:/var/lib/mysql
+    networks:
+      - app-network
+
+  certbot:
+    depends_on:
+      - wordpress
+    image: certbot/certbot
+    volumes:
+      - certbot-etc:/etc/letsencrypt
+      - wordpress:/var/www/html
+    command: certonly --webroot --webroot-path=/var/www/html --email timthecat500@gmail.com --agree-tos --no-eff-email --staging -d test09.netpeak.tech
 
 volumes:
   wordpress:
   db:
+  certbot-etc:
+
+networks:
+  app-network:
+    driver: bridge
+

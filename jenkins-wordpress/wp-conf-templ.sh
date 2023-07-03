@@ -1,6 +1,6 @@
 #!/bin/bash
-#wpdir=/var/www/html
-wpdir=WordPress/html
+wpdir=/var/www/html
+#wpdir=WordPress/html
 
 if [ ! -f "${wpdir}/wp-config.php" ]; then
     cp ${wpdir}/wp-config-sample.php ${wpdir}/wp-config.php
