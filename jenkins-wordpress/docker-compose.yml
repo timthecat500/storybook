@@ -22,7 +22,7 @@ services:
       - app-network
 
   db:
-    image: np/mysql-5.7-1
+    image: np/mysql-5.7:latest
     restart: always
     environment:
       MYSQL_DATABASE: wpdb
