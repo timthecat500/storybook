@@ -1,5 +1,7 @@
 #!/bin/bash
 
+mkdir -p /var/www/html_certbot
+
 wpdir=/var/www/html
 #wpdir=WordPress/html
 
