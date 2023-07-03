@@ -1,0 +1,29 @@
+pipeline {
+    agent any
+    stages {
+        stage('Docker version') {
+            steps {
+                sh "echo $USER"
+                sh 'docker version'
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: 'main',
+                    url: 'https://github.com/timthecat500/storybook.git'
+                }
+        }
+        stage('Docker Compose UP') {
+            steps{
+                dir('jenkins-wordpress') {
+                    sh "echo docker compose ps"
+                    sh "docker compose ps"
+                    sh "echo docker compose ps -a"
+                    sh "docker compose ps -a"
+                    sh "echo docker compose up -d"
+                    sh "docker compose up -d"
+                }
+            }
+        }
+    }
+}
