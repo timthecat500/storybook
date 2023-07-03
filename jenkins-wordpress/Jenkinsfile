@@ -1,0 +1,41 @@
+pipeline {
+    agent any
+    stages {
+        stage('Docker version') {
+            steps {
+                sh "echo $USER"
+                sh 'docker version'
+            }
+        }
+        stage('Delete workspace before build starts') {
+            steps {
+                echo 'Deleting workspace'
+                deleteDir()
+            }
+        }
+        stage('Checkout') {
+            steps{
+                git branch: 'main',
+                    url: 'https://github.com/timthecat500/storybook.git'
+                }
+        }
+        stage('Test') {
+            steps{
+                dir('jenkins-wordpress') {
+                    sh "ls -la "
+                    sh "pwd"
+                }
+                    sh "ls -la "
+                    sh "pwd"
+            }
+        }
+        stage('Build docker image') {
+            steps{
+                dir('jenkins-wordpress') {
+                    sh 'docker build -t npwp:24 .'
+                }
+                sh 'docker images'
+            }
+        }
+    }
+}
