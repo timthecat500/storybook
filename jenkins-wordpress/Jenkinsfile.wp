@@ -30,7 +30,7 @@ pipeline {
         stage('Docker images rotate') {
             steps{
                 sh '''
-		l=$(docker images --format "{{.Repository}}:{{.Tag}}" np/wp | sort -nr | tr "\n" " " | cut -d" " -f3- ) ; if [ -n "$l" ] ; then docker image rm $l ; fi
+		l=$(docker images --format "{{.Repository}}:{{.Tag}}" np/wp | sort -nr | tr "\n" " " | cut -d" " -f4- ) ; if [ -n "$l" ] ; then docker image rm $l ; fi
                 '''
             }
 	}
