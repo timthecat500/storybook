@@ -26,5 +26,25 @@ pipeline {
                 sh 'docker images'
             }
         }
+        stage('Docker images rotate') {
+            steps{
+                sh '''
+		keep_num_images=2
+		imagenames="np/mysql-5.7 np/wp"
+
+		for img in ${imagenames} ; do
+			arr=$(docker images | grep "^${img}" | grep -v " latest " | \
+				tr -s " " | cut -d" " -f2 | sort -dr | tr "\n" " ")
+			n=0
+			for num in $arr ; do
+				if [ "$n" -ge "$keep_num_images" ] ; then
+				    docker image rm $img:$num
+				fi
+				n=$(expr $n + 1)
+			done
+		done
+                '''
+            }
+        }
     }
 }
